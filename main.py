@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = st.secrets["openai_api_key"]
 
 def generate_prevention_info(disease_name):
     prompt = f"Provide preventive measures for the plant disease: {disease_name}."
