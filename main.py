@@ -2,18 +2,31 @@ import streamlit as st
 import openai
 
 # Set your OpenAI API key
-openai.api_key = "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"
+openai.api_key = st.secrets["openai_api_key"]
 
 def generate_prevention_info(disease_name):
-    prompt = f"Provide preventive measures for the plant disease: {disease_name}."
-    
+    prompt_template = """Suggest evidence-based preventive measures for the following scenario involving plants and diseases:
+
+- Plant: '{plant_name}'
+- Disease: '{disease_name}'
+
+Provide the preventive measures in a structured format with clear explanations. Consider the following guidelines:
+
+- Prevention 1: Details on the first prevention method.
+- Prevention 2: Details on the second prevention method.
+- Prevention 3: Details on additional prevention methods.
+
+Include actionable steps a gardener or farmer could take. Be concise in your explanations, avoiding unnecessary details. Focus on providing valuable insights for effective disease management.
+"""
+
+
     # Use OpenAI GPT-3.5 Turbo to generate prevention information
     response = openai.Completion.create(
-        engine="text-davinci-003",  # You can use "text-davinci-003" or another available engine
-        prompt=prompt,
-        max_tokens=150,  # Adjust max_tokens based on desired response length
-        temperature=0.7,  # Adjust temperature for creativity vs. determinism
-        n=1,  # Number of completions to generate
+        engine="text-davinci-003",
+        prompt=prompt_template,
+        max_tokens=300,  # Adjust max_tokens based on desired response length
+        temperature=0.7,
+        n=1,
     )
     
     return response.choices[0].text.strip()
