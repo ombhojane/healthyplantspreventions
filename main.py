@@ -32,7 +32,6 @@ Include actionable steps a gardener or farmer could take. Be concise in your exp
     return response.choices[0].text.strip()
 
 def main():
-    st.title("Plant Disease Prevention Information")
 
     # User input for plant disease
     user_input = st.text_input("Enter the name of the plant disease:")
